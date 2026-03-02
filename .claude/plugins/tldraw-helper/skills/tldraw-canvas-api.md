@@ -1,10 +1,10 @@
 ---
-description: Use this skill when the user wants to create diagrams, flowcharts, illustrations, or any visual content using tldraw Desktop. Trigger on phrases like "draw a diagram", "create a flowchart", "visualize this process", "make an illustration", "draw using tldraw", or when the user mentions tldraw Desktop.
+description: This skill should be used when users want to programmatically create diagrams, flowcharts, illustrations, or visual content using tldraw Desktop's API. Triggers include "draw a diagram", "create a flowchart", "visualize this process", "make an illustration", "sketch a diagram", "build a flowchart", "design a diagram in tldraw", "use tldraw to draw", "create shapes in tldraw", or any mention of tldraw Desktop canvas operations.
 ---
 
 # tldraw Desktop Canvas API
 
-You are an expert at creating visual diagrams and illustrations using the tldraw Desktop Local Canvas API.
+To create visual diagrams and illustrations, use the tldraw Desktop Local Canvas API.
 
 ## Overview
 
@@ -76,86 +76,44 @@ Captures the canvas as a JPEG image. Size options: `small` (768px), `medium` (15
 
 ## Shape Types
 
-### Geometric Shapes
-- **rectangle**, **ellipse**, **triangle**, **diamond**, **hexagon**, **pentagon**, **octagon**
-- **star**, **heart**, **cloud**, **pill**, **x-box**, **check-box**
-- **trapezoid**, **parallelogram-right**, **parallelogram-left**
-- **fat-arrow-right**, **fat-arrow-left**, **fat-arrow-up**, **fat-arrow-down**
+tldraw supports geometric shapes, text, arrows, lines, and sticky notes. For complete shape specifications, see [references/shape-types.md](references/shape-types.md).
 
-All geo shapes use: `{ _type, shapeId, x, y, w, h, color, fill, text?, note }`
+### Common Shapes
 
-### Text
+**Geometric:** rectangle, ellipse, diamond, triangle, hexagon, cloud, star, heart
+**Connectors:** arrow, line
+**Content:** text, note
+
+All geometric shapes use: `{ _type, shapeId, x, y, w, h, color, fill, text?, note }`
+
+### Quick Examples
+
+**Rectangle:**
 ```json
-{
-  "_type": "text",
-  "shapeId": "label1",
-  "x": 100,
-  "y": 100,
-  "anchor": "top-left",
-  "color": "black",
-  "fontSize": 16,
-  "maxWidth": null,
-  "note": "",
-  "text": "Your text here"
-}
+{"_type": "rectangle", "shapeId": "box1", "x": 100, "y": 100, "w": 200, "h": 150, "color": "blue", "fill": "solid", "text": "Hello"}
 ```
 
-**Anchor options:** top-left, top-center, top-right, center-left, center, center-right, bottom-left, bottom-center, bottom-right
-
-### Arrow
+**Text:**
 ```json
-{
-  "_type": "arrow",
-  "shapeId": "arrow1",
-  "x1": 100,
-  "y1": 100,
-  "x2": 300,
-  "y2": 200,
-  "color": "black",
-  "bend": 0,
-  "text": "Label",
-  "note": ""
-}
+{"_type": "text", "shapeId": "label1", "x": 100, "y": 100, "anchor": "top-left", "color": "black", "text": "Label"}
 ```
 
-### Line
+**Arrow:**
 ```json
-{
-  "_type": "line",
-  "shapeId": "line1",
-  "x1": 100,
-  "y1": 100,
-  "x2": 300,
-  "y2": 100,
-  "color": "black",
-  "note": ""
-}
+{"_type": "arrow", "shapeId": "arrow1", "x1": 100, "y1": 100, "x2": 300, "y2": 200, "color": "black"}
 ```
 
-### Sticky Note
+**Sticky Note:**
 ```json
-{
-  "_type": "note",
-  "shapeId": "note1",
-  "x": 100,
-  "y": 100,
-  "color": "yellow",
-  "text": "Sticky note content",
-  "note": ""
-}
+{"_type": "note", "shapeId": "note1", "x": 100, "y": 100, "color": "yellow", "text": "Note content"}
 ```
 
-## Colors
+## Colors and Fills
 
-Available colors: **red**, **light-red**, **green**, **light-green**, **blue**, **light-blue**, **orange**, **yellow**, **black**, **violet**, **light-violet**, **grey**, **white**
+For complete color and fill style reference, see [references/colors-and-fills.md](references/colors-and-fills.md).
 
-## Fill Styles
-
-- **none** - No fill
-- **tint** - Light transparent fill
-- **background** - Solid background color
-- **solid** - Solid fill
-- **pattern** - Pattern fill
+**Colors:** red, green, blue, orange, yellow, violet, grey, black, white (and light- variants)
+**Fills:** none, tint, background, solid, pattern
 
 ## Actions
 
@@ -256,91 +214,26 @@ Available colors: **red**, **light-red**, **green**, **light-green**, **blue**, 
 - Use **arrows** or **lines** to connect
 - Use different **colors** for categories
 
-## Example: Creating a Simple Flowchart
+## Examples
+
+Complete working examples are available in the `examples/` directory:
+
+- **[examples/simple-flowchart.sh](examples/simple-flowchart.sh)** - Basic flowchart with decision points
+- **[examples/architecture-diagram.sh](examples/architecture-diagram.sh)** - Microservices architecture diagram
+
+### Quick Example: Create a Rectangle
 
 ```bash
-# 1. Get document ID
+# Get document ID
 DOC_ID=$(curl -s http://localhost:7236/api/doc | jq -r '.docs[0].id')
 
-# 2. Create flowchart shapes
+# Create a blue rectangle
 curl -X POST "http://localhost:7236/api/doc/$DOC_ID/actions" \
   -H 'Content-Type: application/json' \
-  -d @- << 'EOF'
-{
-  "actions": [
-    {
-      "_type": "create",
-      "shape": {
-        "_type": "ellipse",
-        "shapeId": "start",
-        "x": 200,
-        "y": 100,
-        "w": 120,
-        "h": 80,
-        "color": "green",
-        "fill": "solid",
-        "text": "Start"
-      }
-    },
-    {
-      "_type": "create",
-      "shape": {
-        "_type": "rectangle",
-        "shapeId": "process1",
-        "x": 180,
-        "y": 250,
-        "w": 160,
-        "h": 100,
-        "color": "blue",
-        "fill": "solid",
-        "text": "Process Data"
-      }
-    },
-    {
-      "_type": "create",
-      "shape": {
-        "_type": "diamond",
-        "shapeId": "decision",
-        "x": 190,
-        "y": 420,
-        "w": 140,
-        "h": 100,
-        "color": "orange",
-        "fill": "solid",
-        "text": "Valid?"
-      }
-    },
-    {
-      "_type": "create",
-      "shape": {
-        "_type": "arrow",
-        "shapeId": "arrow1",
-        "x1": 260,
-        "y1": 180,
-        "x2": 260,
-        "y2": 250,
-        "color": "black"
-      }
-    },
-    {
-      "_type": "create",
-      "shape": {
-        "_type": "arrow",
-        "shapeId": "arrow2",
-        "x1": 260,
-        "y1": 350,
-        "x2": 260,
-        "y2": 420,
-        "color": "black"
-      }
-    }
-  ]
-}
-EOF
+  -d '{"actions":[{"_type":"create","shape":{"_type":"rectangle","shapeId":"box1","x":100,"y":100,"w":200,"h":150,"color":"blue","fill":"solid","text":"Hello"}}]}'
 
-# 3. Take screenshot
-curl -s "http://localhost:7236/api/doc/$DOC_ID/screenshot?size=medium" \
-  -o /tmp/flowchart.jpg
+# Take screenshot
+curl -s "http://localhost:7236/api/doc/$DOC_ID/screenshot?size=medium" -o /tmp/result.jpg
 ```
 
 ## Troubleshooting
