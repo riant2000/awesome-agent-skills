@@ -1,7 +1,7 @@
 <div>
   <p align="center">
     <a href="https://platform.composio.dev/?utm_source=Github&utm_medium=Youtube&utm_campaign=2025-11&utm_content=AwesomeSkills">
-    <img width="1280" height="640" alt="Composio banner" src="assets/media/awesome-agent-skills.png">
+    <img width="1280" height="640" alt="Composio banner" src="../assets/media/awesome-agent-skills.png">
     </a>
   </p>
 </div>
@@ -22,7 +22,7 @@
 
 <div align="center">
 
-English | [日本語](README_JA.md) | [简体中文](README.md)
+English | [日本語](README_JA.md) | [简体中文](../README.md)
 
 </div>
 
@@ -42,13 +42,13 @@ This standard has been adopted by leading AI companies including Anthropic, Open
 
 According to the standard, each Skill is a standardized named folder that combines Markdown documents, executable scripts, and other material files.
 
-![](assets/media/skills-sketch.png)
+![](../assets/media/skills-sketch.png)
 
 ## Tutorial Collection
 
 ### Official Guide
 
--   [@Anthropic: Complete Guide to Building Claude Skills (Chinese)](assets/docs/Claude-Skills-完全构建指南.md)
+-   [@Anthropic: Complete Guide to Building Claude Skills (Chinese)](docs/Claude-Skills-完全构建指南.md)
 
 ### Graphic Tutorials
 
@@ -64,11 +64,11 @@ According to the standard, each Skill is a standardized named folder that combin
 
 ## Skills Marketplace
 
-[![](assets/media/skills_sh.png)](https://skills.sh/)
+[![](../assets/media/skills_sh.png)](https://skills.sh/)
 
 It is recommended to use Vercel's [skills.sh](https://skills.sh/) leaderboard, which provides an intuitive view of the most popular Skills repositories and individual Skill usage.
 
-[![skillsmp](assets/media/skills_smp.png)](https://skillsmp.com/zh)
+[![skillsmp](../assets/media/skills_smp.png)](https://skillsmp.com/zh)
 
 Additionally, you can use the [skillsmp](https://skillsmp.com/zh) marketplace, which automatically indexes all Skills projects on GitHub and organizes them by category, update time, star count, and other tags.
 
@@ -186,6 +186,36 @@ As the Agent Skills standard becomes more widespread, an increasing number of co
 -   [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills): Skills collection for marketing
 -   [K-Dense-AI/claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills): Skills collection for scientific researchers
 
+## Plugin Marketplace
+
+This project provides a Claude Code Plugin Marketplace focused on Skill creation, helping you quickly create and improve high-quality Agent Skills.
+
+### Add Marketplace
+
+```bash
+/plugin marketplace add likai/awesome-agentskills
+```
+
+### Available Plugins
+
+#### Skill Creator
+
+A complete Skill creation toolkit with the following features:
+
+- ✨ **Create New Skills**: Build professional skills from scratch
+- 🔧 **Improve Existing Skills**: Optimize and update your skills
+- 📊 **Performance Testing**: Run evaluation tests and performance benchmarks
+- 🎯 **Description Optimization**: Optimize skill descriptions for better triggering accuracy
+
+### Installation and Usage
+
+1. After adding the marketplace, open the `/plugin` command
+2. Find "Skill Creator" in the Discover tab
+3. Select installation scope (User/Project/Local) and install
+4. Use `/skill-creator:skill-creator` command to start creating skills
+
+For more details, see the [plugins directory](plugins/).
+
 ## Supporting Tools
 
 -   [yusufkaraaslan/Skill_Seekers](https://github.com/yusufkaraaslan/Skill_Seekers): Automated scraping of documentation sites, GitHub repositories, and PDF files for conversion into Agent Skills
@@ -211,7 +241,7 @@ Anthropic provides extensive Agent Skills tutorials in their official blog. The 
 
 ## Acknowledgments
 
-![](assets/media/talk_is_cheap.jpg)
+![](../assets/media/talk_is_cheap.jpg)
 
 ## Project History
 
