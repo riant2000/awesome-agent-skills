@@ -56,6 +56,12 @@ If diagram_type and description are not provided, use AskUserQuestion to gather 
 - What should it contain?
 - Any specific style preferences?
 
-Then use the tldraw-canvas-api skill to create the diagram programmatically.
+Then **use the Skill tool** to invoke the tldraw-canvas-api skill:
+
+```
+Skill(skill: "tldraw-helper:tldraw-canvas-api", args: "[diagram_type] [description]")
+```
+
+The skill will handle all diagram creation logic programmatically.
 
 Always take a screenshot at the end to show the result.
