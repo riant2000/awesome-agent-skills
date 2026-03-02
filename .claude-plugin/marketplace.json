@@ -1,17 +1,26 @@
 {
   "name": "awesome-agentskills",
-  "displayName": "Awesome Agent Skills - Skill Creator",
-  "description": "帮助你创建、改进和测试高质量 Agent Skills 的专业工具集",
-  "version": "1.0.0",
-  "author": "likai",
-  "homepage": "https://github.com/likai/awesome-agentskills",
+  "owner": {
+    "name": "likai",
+    "email": "likai@example.com"
+  },
+  "metadata": {
+    "description": "帮助你创建、改进和测试高质量 Agent Skills 的专业工具集",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "skill-creator",
-      "displayName": "Skill Creator",
+      "source": "./plugins/skill-creator",
       "description": "创建新 skills、改进现有 skills、运行评估测试和性能基准测试的完整工具集",
       "version": "1.0.0",
-      "path": "plugins/skill-creator"
+      "author": {
+        "name": "likai",
+        "email": "likai@example.com"
+      },
+      "homepage": "https://github.com/likai/awesome-agentskills",
+      "category": "productivity",
+      "tags": ["skill-creation", "agent-skills", "development"]
     }
   ]
 }
