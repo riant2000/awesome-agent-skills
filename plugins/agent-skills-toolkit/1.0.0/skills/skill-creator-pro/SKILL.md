@@ -5,27 +5,20 @@ description: Create new skills, modify and improve existing skills, and measure 
 
 # Skill Creator Pro
 
-A skill for creating new skills and iteratively improving them.
+Creates, improves, and tests Agent Skills for any domain — engineering, content creation, research, personal productivity, and beyond.
 
-At a high level, the process of creating a skill goes like this:
+## Workflow Overview
 
-- Decide what you want the skill to do and roughly how it should do it
-- Write a draft of the skill
-- Create a few test prompts and run claude-with-access-to-the-skill on them
-- Help the user evaluate the results both qualitatively and quantitatively
-  - While the runs happen in the background, draft some quantitative evals if there aren't any (if there are some, you can either use as is or modify if you feel something needs to change about them). Then explain them to the user (or if they already existed, explain the ones that already exist)
-  - Use the `eval-viewer/generate_review.py` script to show the user the results for them to look at, and also let them look at the quantitative metrics
-- Rewrite the skill based on feedback from the user's evaluation of the results (and also if there are any glaring flaws that become apparent from the quantitative benchmarks)
-- Repeat until you're satisfied
-- Expand the test set and try again at larger scale
+```
+Phase 1: Understand  →  Phase 2: Design  →  Phase 3: Write
+Phase 4: Test        →  Phase 5: Improve →  Phase 6: Optimize
+```
 
-Your job when using this skill is to figure out where the user is in this process and then jump in and help them progress through these stages. So for instance, maybe they're like "I want to make a skill for X". You can help narrow down what they mean, write a draft, write the test cases, figure out how they want to evaluate, run all the prompts, and repeat.
-
-On the other hand, maybe they already have a draft of the skill. In this case you can go straight to the eval/iterate part of the loop.
-
-Of course, you should always be flexible and if the user is like "I don't need to run a bunch of evaluations, just vibe with me", you can do that instead.
-
-Then after the skill is done (but again, the order is flexible), you can also run the skill description improver, which we have a whole separate script for, to optimize the triggering of the skill.
+Jump in at the right phase based on where the user is:
+- "I want to make a skill for X" → Start at Phase 1
+- "Here's my skill draft, help me improve it" → Start at Phase 4
+- "My skill isn't triggering correctly" → Start at Phase 6
+- "Just vibe with me" → Skip phases as needed, stay flexible
 
 Cool? Cool.
 
@@ -42,38 +35,66 @@ It's OK to briefly explain terms if you're in doubt, and feel free to clarify te
 
 ---
 
-## Creating a skill
+## Phase 1: Understand
 
-### Capture Intent
+This phase uses the Inversion pattern — ask first, build later. If the current conversation already contains a workflow the user wants to capture (e.g., "turn this into a skill"), extract answers from the conversation history first before asking.
 
-Start by understanding the user's intent. The current conversation might already contain a workflow the user wants to capture (e.g., they say "turn this into a skill"). If so, extract answers from the conversation history first — the tools used, the sequence of steps, corrections the user made, input/output formats observed. The user may need to fill the gaps, and should confirm before proceeding to the next step.
+Ask these questions **one at a time**, wait for each answer. DO NOT proceed to Phase 2 until all required questions are answered.
 
-1. What should this skill enable Claude to do?
-2. When should this skill trigger? (what user phrases/contexts)
-3. What's the expected output format?
-4. Should we set up test cases to verify the skill works? Skills with objectively verifiable outputs (file transforms, data extraction, code generation, fixed workflow steps) benefit from test cases. Skills with subjective outputs (writing style, art) often don't need them. Suggest the appropriate default based on the skill type, but let the user decide.
-5. Which use case pattern does this skill follow? (See `references/design_principles.md` for the three categories: Document & Asset Creation, Workflow Automation, or MCP Enhancement. Understanding the pattern helps guide design decisions.)
+**Q1 (Required)**: What should this skill enable Claude to do?
+
+**Q2 (Required)**: When should it trigger? What would a user say to invoke it?
+
+**Q3 (Required)**: Which content pattern fits best?
+Read `references/content-patterns.md` and recommend 1-2 patterns with brief reasoning. Let the user confirm before continuing.
+
+**Q4**: What's the expected output format?
+
+**Q5**: Should we set up test cases? Skills with objectively verifiable outputs (file transforms, data extraction, fixed workflows) benefit from test cases. Skills with subjective outputs (writing style, art direction) often don't need them. Suggest the appropriate default, but let the user decide.
+
+**Gate**: All required questions answered + content pattern confirmed → proceed to Phase 2.
 
 ### Interview and Research
 
-Proactively ask questions about edge cases, input/output formats, example files, success criteria, and dependencies. Wait to write test prompts until you've got this part ironed out.
+After the 5 questions, proactively ask about edge cases, input/output formats, example files, success criteria, and dependencies. Wait to write test prompts until you've got this part ironed out.
 
-Check available MCPs - if useful for research (searching docs, finding similar skills, looking up best practices), research in parallel via subagents if available, otherwise inline. Come prepared with context to reduce burden on the user.
+Check available MCPs — if useful for research (searching docs, finding similar skills, looking up best practices), research in parallel via subagents if available, otherwise inline.
 
-### Write the SKILL.md
+---
 
-Based on the user interview, fill in these components:
+## Phase 2: Design
 
-- **name**: Skill identifier (kebab-case, no "claude" or "anthropic" in name - see `references/constraints_and_rules.md`)
-- **description**: When to trigger, what it does. This is the primary triggering mechanism - include both what the skill does AND specific contexts for when to use it. All "when to use" info goes here, not in the body. Follow the formula: `[What it does] + [When to use] + [Trigger phrases]`. Must be under 1024 characters, no XML angle brackets. Note: currently Claude has a tendency to "undertrigger" skills -- to not use them when they'd be useful. To combat this, please make the skill descriptions a little bit "pushy". So for instance, instead of "How to build a simple fast dashboard to display internal Anthropic data.", you might write "How to build a simple fast dashboard to display internal Anthropic data. Make sure to use this skill whenever the user mentions dashboards, data visualization, internal metrics, or wants to display any kind of company data, even if they don't explicitly ask for a 'dashboard.'" See `references/constraints_and_rules.md` for detailed guidance.
-- **compatibility**: Required tools, dependencies (optional, rarely needed)
+Before writing, read:
+- `references/content-patterns.md` — apply the confirmed pattern's structure
+- `references/design_principles.md` — 5 principles to follow
+- `references/patterns.md` — implementation patterns (config.json, gotchas, script reuse, etc.)
+
+Decide:
+- File structure needed (`scripts/` / `references/` / `assets/`)
+- Whether `config.json` setup is needed (user needs to provide personal config)
+- Whether on-demand hooks are needed
+
+**Gate**: Design decisions clear → proceed to Phase 3.
+
+---
+
+## Phase 3: Write
+
+Based on the interview and design decisions, write the SKILL.md.
+
+### Components
+
+- **name**: Skill identifier (kebab-case, no "claude" or "anthropic" — see `references/constraints_and_rules.md`)
+- **description**: The primary triggering mechanism. Include what the skill does AND when to use it. Follow the formula: `[What it does] + [When to use] + [Trigger phrases]`. Under 1024 characters, no XML angle brackets. Make it slightly "pushy" to combat undertriggering — see `references/constraints_and_rules.md` for guidance.
+- **compatibility**: Required tools/dependencies (optional, rarely needed)
 - **the rest of the skill :)**
 
 ### Skill Writing Guide
 
-**Before diving into the details**, familiarize yourself with core concepts:
-- Read `references/design_principles.md` for the three design principles (Progressive Disclosure, Composability, Portability) and three common use case patterns (Document Creation, Workflow Automation, MCP Enhancement)
-- Read `references/constraints_and_rules.md` for technical constraints, naming conventions, and security requirements
+**Before writing**, read:
+- `references/content-patterns.md` — apply the confirmed pattern's structure to the SKILL.md body
+- `references/design_principles.md` — 5 design principles
+- `references/constraints_and_rules.md` — technical constraints, naming conventions
 - Keep `references/quick_checklist.md` handy for pre-publication verification
 
 #### Anatomy of a Skill
@@ -140,9 +161,21 @@ Input: Added user authentication with JWT tokens
 Output: feat(auth): implement JWT-based authentication
 ```
 
+**Gotchas section** - Every skill should have one. Add it as you discover real failures:
+```markdown
+## Gotchas
+- **[Problem]**: [What goes wrong] → [What to do instead]
+```
+
+**config.json setup** - If the skill needs user configuration, check for `config.json` at startup and use `AskUserQuestion` to collect missing values. See `references/patterns.md` for the standard flow.
+
 ### Writing Style
 
-Try to explain to the model why things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start by writing a draft and then look at it with fresh eyes and improve it.
+Try to explain to the model *why* things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start by writing a draft and then look at it with fresh eyes and improve it.
+
+If you find yourself stacking ALWAYS/NEVER, stop and ask: can I explain the reasoning instead? A skill that explains *why* is more robust than one that just issues commands.
+
+**Gate**: Draft complete, checklist reviewed → proceed to Phase 4.
 
 ### Test Cases
 
@@ -291,7 +324,9 @@ For detailed architecture guidance, see:
 
 **After integration check**, proceed with test cases as normal.
 
-## Running and evaluating test cases
+## Phase 4: Test
+
+### Running and evaluating test cases
 
 This section is one continuous sequence — don't stop partway through. Do NOT use `/skill-test` or any other testing skill.
 
@@ -420,7 +455,9 @@ kill $VIEWER_PID 2>/dev/null
 
 ---
 
-## Improving the skill
+## Phase 5: Improve
+
+### Improving the skill
 
 This is the heart of the loop. You've run the test cases, the user has reviewed the results, and now you need to make the skill better based on their feedback.
 
@@ -461,7 +498,9 @@ This is optional, requires subagents, and most users won't need it. The human re
 
 ---
 
-## Description Optimization
+## Phase 6: Optimize Description
+
+### Description Optimization
 
 The description field in SKILL.md frontmatter is the primary mechanism that determines whether Claude invokes a skill. After creating or improving a skill, offer to optimize the description for better triggering accuracy.
 

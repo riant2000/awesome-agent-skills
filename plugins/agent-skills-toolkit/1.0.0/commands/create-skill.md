@@ -23,11 +23,13 @@ Once skill-creator-pro is loaded, focus specifically on the **Creating a skill**
 2. **Interview and Research** (use skill-creator-pro's guidance)
    - Ask about edge cases, input/output formats
    - Check available MCPs if useful
-   - Review `references/design_principles.md` for patterns
+   - Review `references/content-patterns.md` for content structure patterns
+   - Review `references/design_principles.md` for design principles
 
 3. **Write the SKILL.md** (follow skill-creator-pro's templates)
    - Use the anatomy and structure from skill-creator-pro
-   - Follow progressive disclosure principles
+   - Apply the chosen content pattern from `references/content-patterns.md`
+   - Check `references/patterns.md` for implementation patterns (config.json, gotchas, etc.)
    - Reference `references/constraints_and_rules.md` for naming
 
 4. **Create Test Cases** (if applicable)
@@ -40,7 +42,9 @@ Once skill-creator-pro is loaded, focus specifically on the **Creating a skill**
 
 ## Available Resources from skill-creator-pro
 
-- `references/design_principles.md` - Design patterns
+- `references/content-patterns.md` - 5 content structure patterns (Tool Wrapper, Generator, Reviewer, Inversion, Pipeline)
+- `references/design_principles.md` - 5 design principles
+- `references/patterns.md` - Implementation patterns (config.json, gotchas, script reuse, etc.)
 - `references/constraints_and_rules.md` - Technical constraints
 - `references/quick_checklist.md` - Pre-publication checklist
 - `references/schemas.md` - Skill schema reference

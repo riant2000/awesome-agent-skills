@@ -26,7 +26,9 @@ Once skill-creator-pro is loaded, focus on the **iterative improvement** workflo
    - Use `scripts/quick_validate.py` for validation
 
 3. **Propose Improvements** (follow skill-creator-pro's principles)
-   - Reference `references/design_principles.md` for patterns
+   - Reference `references/content-patterns.md` — does the skill use the right content pattern?
+   - Reference `references/design_principles.md` for the 5 design principles
+   - Reference `references/patterns.md` — is config.json, gotchas, script reuse needed?
    - Check `references/constraints_and_rules.md` for compliance
    - Suggest specific enhancements
    - Prioritize based on impact
@@ -44,7 +46,9 @@ Once skill-creator-pro is loaded, focus on the **iterative improvement** workflo
 
 ## Available Resources from skill-creator-pro
 
-- `references/design_principles.md` - Design patterns
+- `references/content-patterns.md` - 5 content structure patterns (Tool Wrapper, Generator, Reviewer, Inversion, Pipeline)
+- `references/design_principles.md` - 5 design principles
+- `references/patterns.md` - Implementation patterns (config.json, gotchas, script reuse, etc.)
 - `references/constraints_and_rules.md` - Technical constraints
 - `references/quick_checklist.md` - Validation checklist
 - `scripts/quick_validate.py` - Validation script

@@ -206,14 +206,16 @@ skillhub upgrade # 升级已安装的技能
 
 虽然可以通过技能商店直接安装他人创建的技能，但是为了提升技能的适配度和个性化，强烈建议根据需要自己动手创建技能，或者在其他人的基础上进行微调。
 
-### 官方技能
+### 官方插件
 
-通过官方出品的  [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) 可快速创建和迭代个人专属的 skill。
+通过官方出品的  [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) 插件可快速创建和迭代个人专属的 skill。
 
+
+![](assets/media/skill-creator.png)
 
 ### 增强插件
 
-在官方 skill-creator plugin 的基础上，本项目整合 [Claude Skill 完整构建指南](docs/Claude-Skills-完全构建指南.md) 和 [Agent Skills 五种设计模式](docs/Agent-Skill-五种设计模式.md) 的最佳实践，构建了一个更为强大的 Agent Skills Toolkit ，帮助你快速创建和改进 Agent Skills。
+在官方 skill-creator plugin 的基础上，本项目整合 [Claude Skill 完整构建指南](docs/Claude-Skills-完全构建指南.md) 和 [Agent Skills 五种设计模式](docs/Agent-Skill-五种设计模式.md) 的最佳实践，构建了一个更为强大的 Agent Skills Toolkit，帮助你快速创建和改进 Agent Skills。
 
 **注意：该插件目前仅支持 Claude Code**
 

@@ -106,30 +106,40 @@ Use this checklist before publishing or sharing your skill. Each section corresp
 
 ---
 
-## Use Case Pattern Checklist
+## Content Pattern Checklist
 
-Identify which category your skill falls into and verify relevant criteria:
+Identify which content pattern(s) your skill uses (see `content-patterns.md`):
 
-### Category 1: Document & Asset Creation
-- [ ] Templates or style guides embedded or referenced
-- [ ] Output format clearly defined
-- [ ] Quality criteria specified
-- [ ] Examples show expected output structure
-- [ ] Consistency mechanisms in place
+### All Patterns
+- [ ] Content pattern(s) identified (Tool Wrapper / Generator / Reviewer / Inversion / Pipeline)
+- [ ] Pattern structure applied in SKILL.md
 
-### Category 2: Workflow Automation
-- [ ] Workflow steps clearly sequenced
-- [ ] Validation checkpoints included
-- [ ] Error handling at each step
-- [ ] Iteration and refinement supported
-- [ ] Progress indicators for multi-step processes
+### Generator
+- [ ] Output template exists in `assets/`
+- [ ] Style guide or conventions in `references/`
+- [ ] Steps clearly tell Claude to load template before filling
 
-### Category 3: MCP Enhancement
-- [ ] MCP server capabilities documented
-- [ ] Workflow patterns for common tasks provided
-- [ ] Domain expertise embedded in instructions
-- [ ] API errors and rate limits handled
-- [ ] Technical outputs translated for users
+### Reviewer
+- [ ] Review checklist in `references/`
+- [ ] Output format defined (severity levels, scoring, etc.)
+
+### Inversion
+- [ ] Questions listed explicitly, asked one at a time
+- [ ] Gate condition present: "DO NOT proceed until all questions answered"
+
+### Pipeline
+- [ ] Each step has a clear completion condition
+- [ ] Gate conditions present: "DO NOT proceed to Step N until [condition]"
+- [ ] Steps are numbered and sequential
+
+---
+
+## Implementation Patterns Checklist
+
+- [ ] If user config needed: `config.json` setup flow present
+- [ ] `## Gotchas` section included (even if just 1 entry)
+- [ ] If cross-session state needed: data stored in `${CLAUDE_PLUGIN_DATA}`, not skill directory
+- [ ] If Claude repeatedly writes the same helper code: extracted to `scripts/`
 
 ---
 
