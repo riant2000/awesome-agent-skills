@@ -40,7 +40,7 @@ After half a year of development and iteration, Skill has become the standard so
 
 ## Standard Structure
 
-According to the standard definition, each Skill is a standardized named folder containing workflows, references, scripts, and other resources. AI progressively imports these contents in context to learn and master related skills.
+According to the standard definition, each Skill is a standardized named folder containing workflows, references, scripts, and other resources. AI progressively imports these contents in context to learn related skills.
 
 ```markdown
 my-skill/
@@ -245,13 +245,15 @@ skillhub upgrade                  # Upgrade installed skills
 -   [marketingskills](https://github.com/coreyhaines31/marketingskills): Enhance marketing capabilities
 -   [scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills): Improve skills for researchers
 
-## Security Warning
+## Security Audit
 
-Since Skills may contain potentially risky operations such as calling external APIs or executing scripts, security must be taken seriously when designing and using Skills.
+Since Skills may contain potentially risky operations such as calling external APIs or silently executing scheduled scripts, security must be taken seriously when designing and using Skills.
 
 When installing Skills, it is recommended to prioritize those from official stores or well-known third-party stores, and carefully read the Skill's description and user reviews to avoid installing Skills from unknown sources.
 
-For scenarios with higher security requirements, you can refer to @余弦's [OpenClaw Minimal Security Practice Guide v2.8](https://github.com/slowmist/openclaw-security-practice-guide/blob/main/docs/OpenClaw%E6%9E%81%E7%AE%80%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97v2.8.md) to have AI perform a self-audit.
+For scenarios with higher security requirements, you can use @余弦's [slowmist-agent-security skill](https://github.com/slowmist/slowmist-agent-security) to conduct security audits and risk assessments of Skills, ensuring their security and reliability.
+
+If using Agent Harnesses with high autonomy like OpenClaw, it is recommended to use the [OpenClaw Minimal Security Practice Guide](https://github.com/slowmist/openclaw-security-practice-guide) together, applying system prompt-level security constraints to minimize potential risks.
 
 ## Create Skills
 
