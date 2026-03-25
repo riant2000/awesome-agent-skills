@@ -52,7 +52,7 @@ my-skill/
 
 ## 安装技能
 
-Skill 可以在 Claude 和 ChatGPT 这类 GUI 的 App 中使用，也可以在 Cursor 和 Claude Code 这类编程 IDE 及 TUI 工具中使用，还可以在 OpenClaw 等 Agent Harness 上使用。
+Skill 可以在 Claude 和 ChatGPT 这类 GUI 的 App 中使用，也可以在 Cursor 和 Claude Code 这类编程 IDE 及 TUI CLI 中使用，还可以在 OpenClaw 等 Agent Harness 上使用。
 
 安装 Skill 过程的本质，其实就是将 Skill 对应的文件夹放到特定的目录下，以便 AI 能按需加载和使用。
 
@@ -132,12 +132,10 @@ skillhub upgrade # 升级已安装的技能
 -   @一泽 Eze：[Agent Skills 终极指南：入门、精通、预测](https://mp.weixin.qq.com/s/jUylk813LYbKw0sLiIttTQ)
 -   @deeptoai：[Claude Agent Skills 第一性原理深度解析](https://skills.deeptoai.com/zh/docs/ai-ml/claude-agent-skills-first-principles-deep-dive)
 
-
 ### 视频教程
 
 -   @马克的技术工作坊：[Agent Skill 从使用到原理，一次讲清](https://www.youtube.com/watch?v=yDc0_8emz7M)
--   @白白说大模型：[别再造 Agent 了，未来是Skills的](https://www.youtube.com/watch?v=xeoWgfkxADI)
--   @AI学长小林：[OpenClaw 全网最细教学：安装→Skills实战→多Agent协作](https://www.youtube.com/watch?v=2ZZCyHzo9as)
+-   @宝玉：[Agent Skills 设计哲学和实战进化](https://x.com/dotey/status/2036114136245969025)
 
 ## 官方项目
 
@@ -204,7 +202,7 @@ skillhub upgrade # 升级已安装的技能
 </tr>
 <tr>
 <td><a href="https://github.com/hardhackerlabs/podwise">podwise-cli</a></td>
-<td></td>
+<td><a href="https://github.com/wpsnote/wpsnote-skills">wps</a></td>
 <td></td>
 <td></td>
 <td></td>
